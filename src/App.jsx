@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react'
-import coachWhiteCap from './assets/coach-white-cap.jpeg'
-import program1 from './assets/program-1.png'
-import program2 from './assets/program-2.png'
-import program3 from './assets/program-3.png'
+import { Analytics } from '@vercel/analytics/react'
+import coachWhiteCap from './assets/coach-white-cap.webp'
+import program1 from './assets/program-1.webp'
+import program2 from './assets/program-2.webp'
+import program3 from './assets/program-3.webp'
 import './App.css'
 
 const MONO = "'Geist Mono', monospace"
 const ACCENT = '#D4AF37'
+
+const BANKS = [
+  { name: 'Atlantic Bank', holder: 'Keenan Bernard', account: '211774677' },
+  { name: 'Belize Bank',   holder: 'Keenan Bernard', account: '265564010160000' },
+]
 
 const strive = [
   { n: '01', title: 'Maximum intensity', body: "Every working set taken to true failure and beyond. If it was easy, it didn't count." },
@@ -59,6 +65,7 @@ export default function App() {
   const [error, setError] = useState('')
   const [honey, setHoney] = useState('')
   const [pageVisible, setPageVisible] = useState(true)
+  const [buyProgram, setBuyProgram] = useState(null)
 
   // #15 exit 220ms ease-in, entrance 280ms ease-out (~21% shorter exit)
   function navigate(newPage) {
@@ -84,6 +91,7 @@ export default function App() {
   function goContact() { navigate('contact') }
   function goPrivacy() { navigate('privacy') }
   function goTerms() { navigate('terms') }
+  function goBuy(program) { setBuyProgram(program); navigate('buy') }
 
   async function submit() {
     if (honey) return // #18 honeypot — bots fill hidden fields, humans don't
@@ -138,9 +146,10 @@ export default function App() {
       contact: 'Contact · Keenan Bernard',
       privacy: 'Privacy Policy · Keenan Bernard',
       terms: 'Terms of Use · Keenan Bernard',
+      buy: `Buy ${buyProgram?.name ?? 'Program'} · Keenan Bernard`,
     }
     document.title = titles[page] || 'Keenan Bernard · Heavy Duty Training'
-  }, [page])
+  }, [page, buyProgram])
 
   const firstName = name.trim().split(' ')[0] || 'there'
 
@@ -266,7 +275,7 @@ export default function App() {
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: 20 }}>
                       {/* #18 tabular-nums on prices */}
                       <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{p.price}</div>
-                      <button className="hvr-dark" style={{ height: 42, padding: '0 20px', borderRadius: 999, border: 0, background: '#111', color: '#F4F4F0', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>Buy program</button>
+                      <button onClick={() => goBuy(p)} className="hvr-accent" style={{ height: 42, padding: '0 20px', borderRadius: 999, border: 0, background: ACCENT, color: '#111', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>Buy program</button>
                     </div>
                   </div>
                 </div>
@@ -536,8 +545,63 @@ export default function App() {
         </section>
       )}
 
+      {/* ── BUY ── */}
+      {page === 'buy' && buyProgram && (
+        <section style={{ padding: 'clamp(120px,14vw,170px) clamp(20px,5vw,48px) clamp(80px,10vw,120px)', maxWidth: 760, margin: '0 auto' }}>
+          <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666', marginBottom: 20, fontWeight: 500 }}>Purchase</div>
+          <h1 style={{ margin: 0, fontSize: 'clamp(32px,5vw,56px)', lineHeight: 0.96, letterSpacing: '-0.05em', fontWeight: 800 }}>{buyProgram.name}</h1>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 20 }}>
+            <span style={{ fontSize: 'clamp(40px,5vw,56px)', fontWeight: 800, letterSpacing: '-0.05em', fontVariantNumeric: 'tabular-nums' }}>{buyProgram.price}</span>
+            <span style={{ fontSize: 16, color: '#888' }}>USD · one-time</span>
+          </div>
+
+          <div style={{ marginTop: 48 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '56px 1fr', gap: 16, padding: '28px 0', borderTop: '1px solid #e3e3e3' }}>
+              <div style={{ fontFamily: MONO, fontSize: 13, color: '#666', paddingTop: 4 }}>01</div>
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.025em' }}>Send payment</div>
+                <p style={{ margin: '8px 0 16px', fontSize: 15, color: '#666', lineHeight: 1.5 }}>Transfer the exact amount to either bank below.</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {BANKS.map(b => (
+                    <div key={b.name} style={{ background: '#f5f5f7', borderRadius: 16, padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', color: '#888' }}>{b.name}</div>
+                      {[['Account name', b.holder, false], ['Account number', b.account, true]].map(([label, value, mono]) => (
+                        <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
+                          <span style={{ fontSize: 14, color: '#666' }}>{label}</span>
+                          <span style={{ fontSize: 14, fontWeight: 600, fontFamily: mono ? MONO : 'inherit' }}>{value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '56px 1fr', gap: 16, padding: '28px 0', borderTop: '1px solid #e3e3e3' }}>
+              <div style={{ fontFamily: MONO, fontSize: 13, color: '#666', paddingTop: 4 }}>02</div>
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.025em' }}>Send your receipt</div>
+                <p style={{ margin: '8px 0 0', fontSize: 16, lineHeight: 1.6, color: '#444' }}>Screenshot your payment confirmation and send it to <strong>keenanbernard@outlook.com</strong> or WhatsApp <strong>+501 614 4297</strong>.</p>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '56px 1fr', gap: 16, padding: '28px 0', borderTop: '1px solid #e3e3e3' }}>
+              <div style={{ fontFamily: MONO, fontSize: 13, color: '#666', paddingTop: 4 }}>03</div>
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.025em' }}>Get your program</div>
+                <p style={{ margin: '8px 0 0', fontSize: 16, lineHeight: 1.6, color: '#444' }}>Your program PDF will be emailed to you within 24 hours of receipt confirmation.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ borderTop: '1px solid #e3e3e3', paddingTop: 32 }}>
+            <button onClick={() => scrollTo('programs')} className="hvr-white" style={{ height: 46, padding: '0 22px', borderRadius: 999, border: '1px solid #cfcfcf', background: '#fff', color: '#111', fontSize: 15, cursor: 'pointer' }}>← Back to programs</button>
+          </div>
+        </section>
+      )}
+
       {/* ── 404 ── #15 */}
-      {!['home','contact','privacy','terms'].includes(page) && (
+      {!['home','contact','privacy','terms','buy'].includes(page) && (
         <section style={{ padding: 'clamp(140px,16vw,200px) clamp(20px,5vw,48px) clamp(80px,10vw,120px)', maxWidth: 760, margin: '0 auto', textAlign: 'center' }}>
           <div style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666', marginBottom: 20, fontWeight: 500 }}>404</div>
           <h1 style={{ margin: 0, fontSize: 'clamp(40px,6vw,72px)', lineHeight: 0.96, letterSpacing: '-0.05em', fontWeight: 800 }}>Page not found.</h1>
@@ -578,6 +642,7 @@ export default function App() {
 
       </div> {/* end fade wrapper */}
 
+      <Analytics />
     </div>
   )
 }

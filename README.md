@@ -1,16 +1,36 @@
-# React + Vite
+# Heavy Duty Training — trainwithkeenan.vercel.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal training and coaching site for Keenan Bernard. Built on Mike Mentzer's Heavy Duty principles: maximum intensity, minimum volume, every set to failure.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19 + Vite
+- Vercel (hosting + analytics)
+- Web3Forms (contact form)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Training programs with bank transfer purchase flow
+- 1:1 coaching enquiry form
+- Mobile-responsive single-page app with page transitions
+- Privacy policy and Terms of Use
 
-## Expanding the ESLint configuration
+## Dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+## Deploy
+
+```bash
+vercel --prod
+```
+
+## Notes
+
+- Bank details live in the `BANKS` constant in `src/App.jsx`
+- Web3Forms access key in `submit()` — intentionally public (like a Stripe publishable key)
+- OG image at `public/og-image.png` — update if domain changes
+- Update `canonical`, `og:url`, and JSON-LD `url` in `index.html` when moving to a custom domain
