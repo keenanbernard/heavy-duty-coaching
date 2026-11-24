@@ -5,6 +5,7 @@ import program1 from './assets/program-1.webp'
 import program2 from './assets/program-2.webp'
 import program3 from './assets/program-3.webp'
 import './App.css'
+import { SALE, SALE_MESSAGE } from './settings.js'
 
 const MONO = "'Geist Mono', monospace"
 const ACCENT = '#D4AF37'
@@ -21,9 +22,9 @@ const strive = [
 ]
 
 const programs = [
-  { src: program1, level: 'Gym', name: 'The Upper-Lower Program 2.0', body: 'The next step up. Upper/lower split, each muscle hit twice a week with 2–3 all-out sets plus rest-pause and partials.', days: 'Low volume training', weeks: 'Upper / Lower split', price: '$49.99' },
-  { src: program2, level: 'Gym', name: 'The Upper-Lower Program 1.0', body: 'Where the Heavy Duty approach starts. Learn to train to true failure on a simple upper/lower split.', days: 'Low volume training', weeks: 'Upper / Lower split', price: '$39.99' },
-  { src: program3, level: 'At home', name: 'High Intensity Kettlebell Program', body: 'A beginner at-home program built around kettlebells. High intensity, low volume, minimal equipment.', days: 'Low volume training', weeks: 'Beginner friendly', price: '$39.99' },
+  { src: program1, level: 'Gym', name: 'The Upper-Lower Program 2.0', body: 'The next step up. Upper/lower split, each muscle hit twice a week with 2–3 all-out sets plus rest-pause and partials.', days: 'Low volume training', weeks: 'Upper / Lower split', price: '$49.99', salePrice: '$29.99' },
+  { src: program2, level: 'Gym', name: 'The Upper-Lower Program 1.0', body: 'Where the Heavy Duty approach starts. Learn to train to true failure on a simple upper/lower split.', days: 'Low volume training', weeks: 'Upper / Lower split', price: '$39.99', salePrice: '$23.99' },
+  { src: program3, level: 'At home', name: 'High Intensity Kettlebell Program', body: 'A beginner at-home program built around kettlebells. High intensity, low volume, minimal equipment.', days: 'Low volume training', weeks: 'Beginner friendly', price: '$39.99', salePrice: '$23.99' },
 ]
 
 const habits = [
@@ -80,7 +81,7 @@ export default function App() {
     setMobileMenuOpen(false)
     function go() {
       const el = document.getElementById(id)
-      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' })
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - (SALE ? 106 : 70), behavior: 'smooth' })
     }
     if (page !== 'home') {
       setPageVisible(false)
@@ -159,8 +160,14 @@ export default function App() {
   return (
     <div style={{ minHeight: '100vh', background: '#fff' }}>
 
+      {SALE && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 51, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', background: ACCENT, color: '#111', fontSize: 13, fontWeight: 600, letterSpacing: '-0.01em' }}>
+          {SALE_MESSAGE}
+        </div>
+      )}
+
       {/* Fixed floating header */}
-      <header style={{ position: 'fixed', top: 14, left: 0, right: 0, zIndex: 50, display: 'flex', justifyContent: 'center', gap: 8, padding: '0 16px', pointerEvents: 'none' }}>
+      <header style={{ position: 'fixed', top: SALE ? 50 : 14, left: 0, right: 0, zIndex: 50, display: 'flex', justifyContent: 'center', gap: 8, padding: '0 16px', pointerEvents: 'none' }}>
         <button
           onClick={goHome}
           className="hvr-nav"
@@ -215,7 +222,7 @@ export default function App() {
         <section style={{ position: 'relative', background: '#000', color: '#fff', minHeight: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
           <img src={coachWhiteCap} alt="Keenan Bernard" style={{ position: 'absolute', top: 0, right: 0, height: '100%', width: 'min(62%, 900px)', objectFit: 'cover', objectPosition: 'center 30%' }} />
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(90deg,#000 32%,rgba(0,0,0,0.6) 55%,rgba(0,0,0,0) 80%)', pointerEvents: 'none' }} />
-          <div style={{ position: 'relative', width: '100%', maxWidth: 1240, margin: '0 auto', padding: '120px clamp(20px,5vw,48px) 80px' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: 1240, margin: '0 auto', padding: `${SALE ? 156 : 120}px clamp(20px,5vw,48px) 80px` }}>
             {/* #3 / #6 stagger at 30ms+ intervals, ease-out (#1) */}
             <div style={{ fontFamily: MONO, fontSize: 12, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#a3a3a3', marginBottom: 28, animation: 'slideUp 500ms ease-out both', animationDelay: '0ms' }}>Heavy Duty · High Intensity Training</div>
             <h1 style={{ margin: 0, fontSize: 'clamp(52px,8.4vw,120px)', lineHeight: 0.92, letterSpacing: '-0.055em', fontWeight: 800, maxWidth: '9ch', textWrap: 'balance', animation: 'slideUp 500ms ease-out both', animationDelay: '80ms' }}>Fewer sets. Harder sets.</h1>
@@ -296,8 +303,8 @@ export default function App() {
                 <div key={i} style={{ background: '#fff', borderRadius: 28, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ position: 'relative', aspectRatio: '1414/2000', background: '#111' }}>
                     <img src={p.src} alt={p.name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                    {/* #4 mono removed from level badge — it's a label, not a data value */}
                     <div style={{ position: 'absolute', top: 16, left: 16, fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600, background: '#fff', color: '#111', padding: '6px 10px', borderRadius: 999, pointerEvents: 'none' }}>{p.level}</div>
+                    {SALE && <div style={{ position: 'absolute', top: 16, right: 16, fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 700, background: ACCENT, color: '#111', padding: '6px 10px', borderRadius: 999, pointerEvents: 'none' }}>40% off</div>}
                   </div>
                   <div style={{ padding: '28px 28px 30px', display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
                     <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: '-0.03em' }}>{p.name}</div>
@@ -307,8 +314,14 @@ export default function App() {
                       <span style={{ fontSize: 12, color: '#444', background: '#f2f2f4', padding: '6px 10px', borderRadius: 999 }}>{p.weeks}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: 20 }}>
-                      {/* #18 tabular-nums on prices */}
-                      <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{p.price}</div>
+                      {SALE ? (
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                          <span style={{ fontSize: 22, fontWeight: 700, color: ACCENT, letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{p.salePrice}</span>
+                          <span style={{ fontSize: 15, color: '#aaa', textDecoration: 'line-through', fontVariantNumeric: 'tabular-nums' }}>{p.price}</span>
+                        </div>
+                      ) : (
+                        <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{p.price}</div>
+                      )}
                       <button onClick={() => goBuy(p)} className="hvr-accent" style={{ height: 42, padding: '0 20px', borderRadius: 999, border: 0, background: ACCENT, color: '#111', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>Buy program</button>
                     </div>
                   </div>
@@ -584,9 +597,16 @@ export default function App() {
         <section style={{ padding: 'clamp(120px,14vw,170px) clamp(20px,5vw,48px) clamp(80px,10vw,120px)', maxWidth: 760, margin: '0 auto' }}>
           <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666', marginBottom: 20, fontWeight: 500 }}>Purchase</div>
           <h1 style={{ margin: 0, fontSize: 'clamp(32px,5vw,56px)', lineHeight: 0.96, letterSpacing: '-0.05em', fontWeight: 800 }}>{buyProgram.name}</h1>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 20 }}>
-            <span style={{ fontSize: 'clamp(40px,5vw,56px)', fontWeight: 800, letterSpacing: '-0.05em', fontVariantNumeric: 'tabular-nums' }}>{buyProgram.price}</span>
-            <span style={{ fontSize: 16, color: '#888' }}>USD · one-time</span>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginTop: 20, flexWrap: 'wrap' }}>
+            {SALE ? (
+              <>
+                <span style={{ fontSize: 'clamp(40px,5vw,56px)', fontWeight: 800, letterSpacing: '-0.05em', fontVariantNumeric: 'tabular-nums', color: ACCENT }}>{buyProgram.salePrice}</span>
+                <span style={{ fontSize: 22, color: '#aaa', textDecoration: 'line-through', fontVariantNumeric: 'tabular-nums', alignSelf: 'center' }}>{buyProgram.price}</span>
+              </>
+            ) : (
+              <span style={{ fontSize: 'clamp(40px,5vw,56px)', fontWeight: 800, letterSpacing: '-0.05em', fontVariantNumeric: 'tabular-nums' }}>{buyProgram.price}</span>
+            )}
+            <span style={{ fontSize: 16, color: '#888', alignSelf: 'center' }}>USD · one-time</span>
           </div>
 
           <div style={{ marginTop: 48 }}>
