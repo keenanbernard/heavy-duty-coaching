@@ -66,15 +66,18 @@ export default function App() {
   const [honey, setHoney] = useState('')
   const [pageVisible, setPageVisible] = useState(true)
   const [buyProgram, setBuyProgram] = useState(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   // #15 exit 220ms ease-in, entrance 280ms ease-out (~21% shorter exit)
   function navigate(newPage) {
+    setMobileMenuOpen(false)
     if (page === newPage) return
     setPageVisible(false)
     setTimeout(() => { setPage(newPage); setPageVisible(true); window.scrollTo({ top: 0 }) }, 220)
   }
 
   function scrollTo(id) {
+    setMobileMenuOpen(false)
     function go() {
       const el = document.getElementById(id)
       if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' })
@@ -163,13 +166,44 @@ export default function App() {
           className="hvr-nav"
           style={{ pointerEvents: 'auto', height: 44, padding: '0 18px', borderRadius: 999, border: '1px solid rgba(244,244,240,0.14)', background: 'rgba(18,18,18,0.85)', backdropFilter: 'blur(20px) saturate(1.6)', WebkitBackdropFilter: 'blur(20px) saturate(1.6)', color: '#F4F4F0', fontWeight: 700, fontSize: 15, letterSpacing: '-0.02em', cursor: 'pointer' }}
         >KB</button>
-        <nav style={{ pointerEvents: 'auto', height: 44, display: 'flex', alignItems: 'center', gap: 4, padding: '0 6px', borderRadius: 999, border: '1px solid rgba(244,244,240,0.14)', background: 'rgba(18,18,18,0.85)', backdropFilter: 'blur(20px) saturate(1.6)', WebkitBackdropFilter: 'blur(20px) saturate(1.6)' }}>
-          <button onClick={() => scrollTo('method')} className="hvr-nav nav-scroll" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 13, fontWeight: 500, padding: '8px 12px', borderRadius: 999, cursor: 'pointer' }}>Method</button>
-          <button onClick={() => scrollTo('programs')} className="hvr-nav nav-scroll" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 13, fontWeight: 500, padding: '8px 12px', borderRadius: 999, cursor: 'pointer' }}>Programs</button>
-          <button onClick={() => scrollTo('coaching')} className="hvr-nav nav-scroll" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 13, fontWeight: 500, padding: '8px 12px', borderRadius: 999, cursor: 'pointer' }}>Coaching</button>
+        <nav className="nav-desktop" style={{ pointerEvents: 'auto', height: 44, alignItems: 'center', gap: 4, padding: '0 6px', borderRadius: 999, border: '1px solid rgba(244,244,240,0.14)', background: 'rgba(18,18,18,0.85)', backdropFilter: 'blur(20px) saturate(1.6)', WebkitBackdropFilter: 'blur(20px) saturate(1.6)' }}>
+          <button onClick={() => scrollTo('method')} className="hvr-nav" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 13, fontWeight: 500, padding: '8px 12px', borderRadius: 999, cursor: 'pointer' }}>Method</button>
+          <button onClick={() => scrollTo('programs')} className="hvr-nav" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 13, fontWeight: 500, padding: '8px 12px', borderRadius: 999, cursor: 'pointer' }}>Programs</button>
+          <button onClick={() => scrollTo('coaching')} className="hvr-nav" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 13, fontWeight: 500, padding: '8px 12px', borderRadius: 999, cursor: 'pointer' }}>Coaching</button>
           <button onClick={goContact} className="hvr-accent" style={{ background: ACCENT, border: 0, color: '#111', fontSize: 13, fontWeight: 600, padding: '8px 14px', borderRadius: 999, cursor: 'pointer', marginLeft: 2 }}>Contact</button>
         </nav>
+        <button
+          className="nav-mobile-btn hvr-nav"
+          onClick={() => setMobileMenuOpen(o => !o)}
+          style={{ pointerEvents: 'auto', height: 44, width: 44, borderRadius: 999, border: '1px solid rgba(244,244,240,0.14)', background: 'rgba(18,18,18,0.85)', backdropFilter: 'blur(20px) saturate(1.6)', WebkitBackdropFilter: 'blur(20px) saturate(1.6)', cursor: 'pointer', alignItems: 'center', justifyContent: 'center' }}
+          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+        >
+          {mobileMenuOpen ? (
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <line x1="1" y1="1" x2="13" y2="13" stroke="#F4F4F0" strokeWidth="1.5" strokeLinecap="round"/>
+              <line x1="13" y1="1" x2="1" y2="13" stroke="#F4F4F0" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          ) : (
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
+              <line x1="0" y1="1" x2="18" y2="1" stroke="#F4F4F0" strokeWidth="1.5" strokeLinecap="round"/>
+              <line x1="0" y1="6" x2="18" y2="6" stroke="#F4F4F0" strokeWidth="1.5" strokeLinecap="round"/>
+              <line x1="0" y1="11" x2="18" y2="11" stroke="#F4F4F0" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          )}
+        </button>
       </header>
+
+      {mobileMenuOpen && (
+        <>
+          <div onClick={() => setMobileMenuOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 48 }} />
+          <div style={{ position: 'fixed', top: 70, left: 16, right: 16, zIndex: 50, background: 'rgba(18,18,18,0.95)', backdropFilter: 'blur(20px) saturate(1.6)', WebkitBackdropFilter: 'blur(20px) saturate(1.6)', borderRadius: 20, border: '1px solid rgba(244,244,240,0.14)', padding: '8px', display: 'flex', flexDirection: 'column', gap: 2, animation: 'navSlideDown 180ms ease-out both' }}>
+            <button onClick={() => scrollTo('method')} className="hvr-nav" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 16, fontWeight: 500, padding: '14px 16px', borderRadius: 14, cursor: 'pointer', textAlign: 'left' }}>Method</button>
+            <button onClick={() => scrollTo('programs')} className="hvr-nav" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 16, fontWeight: 500, padding: '14px 16px', borderRadius: 14, cursor: 'pointer', textAlign: 'left' }}>Programs</button>
+            <button onClick={() => scrollTo('coaching')} className="hvr-nav" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 16, fontWeight: 500, padding: '14px 16px', borderRadius: 14, cursor: 'pointer', textAlign: 'left' }}>Coaching</button>
+            <button onClick={goContact} className="hvr-accent" style={{ background: ACCENT, border: 0, color: '#111', fontSize: 16, fontWeight: 600, padding: '14px 16px', borderRadius: 14, cursor: 'pointer', textAlign: 'left', marginTop: 4 }}>Contact</button>
+          </div>
+        </>
+      )}
 
       {/* #16 overlap old/new: single div fades out then page swaps then fades in */}
       <div style={{ opacity: pageVisible ? 1 : 0, transition: pageVisible ? 'opacity 280ms ease-out' : 'opacity 220ms ease-in' }}>

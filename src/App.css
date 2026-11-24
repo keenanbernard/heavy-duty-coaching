@@ -5,9 +5,18 @@
 .hvr-accent:hover { background: #b8962e !important; }
 .focus-border:focus { border-color: #111 !important; }
 
-/* #14 mobile nav — hide scroll links on small screens, keep KB + Contact */
+/* mobile nav — desktop pill visible, hamburger hidden by default */
+.nav-desktop { display: flex; }
+.nav-mobile-btn { display: none; }
+
 @media (max-width: 540px) {
-  .nav-scroll { display: none; }
+  .nav-desktop { display: none; }
+  .nav-mobile-btn { display: flex; }
+}
+
+@keyframes navSlideDown {
+  from { transform: translateY(-8px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
 }
 
 /* #4 / #14 — scale on press; transition only plays on state change, not while held */
