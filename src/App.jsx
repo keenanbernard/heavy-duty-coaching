@@ -22,9 +22,111 @@ const strive = [
 ]
 
 const programs = [
-  { src: program1, level: 'Gym', name: 'The Upper-Lower Program 2.0', body: 'The next step up. Upper/lower split, each muscle hit twice a week with 2–3 all-out sets plus rest-pause and partials.', days: 'Low volume training', weeks: 'Upper / Lower split', price: '$49.99', salePrice: '$29.99' },
-  { src: program2, level: 'Gym', name: 'The Upper-Lower Program 1.0', body: 'Where the Heavy Duty approach starts. Learn to train to true failure on a simple upper/lower split.', days: 'Low volume training', weeks: 'Upper / Lower split', price: '$39.99', salePrice: '$23.99' },
-  { src: program3, level: 'At home', name: 'High Intensity Kettlebell Program', body: 'A beginner at-home program built around kettlebells. High intensity, low volume, minimal equipment.', days: 'Low volume training', weeks: 'Beginner friendly', price: '$39.99', salePrice: '$23.99' },
+  {
+    src: program1, level: 'Gym', name: 'The Upper-Lower Program 2.0',
+    body: 'The next step up. Upper/lower split, each muscle hit twice a week with 2–3 all-out sets plus rest-pause and partials.',
+    days: 'Low volume training', weeks: 'Upper / Lower split', price: '$49.99', salePrice: '$29.99',
+    details: {
+      tagline: 'Low volume. Maximum effort.',
+      intro: [
+        'A 6-week, low-volume, high-intensity training plan built to push your limits and deliver real results.',
+        'Train 4 days per week with focused sessions built around 2–3 hard sets per exercise. Every working set taken to true failure, or extended with rest-pause to squeeze out every last rep.',
+        'No wasted volume. No junk sets. Just maximum effort on every single rep that counts.',
+        'Built for lifters who are short on time, in a fat loss phase, or ready to stop leaving reps in the tank.',
+      ],
+      sections: [
+        {
+          label: 'What you get',
+          paragraphs: [
+            'Along with your Upper-Lower Program 2.0 PDF, you get a full workout tracker built into the program. Log your weight and reps for every set across all 6 weeks, every workout.',
+            'Track your numbers. See your progress. Know exactly when to add weight.',
+          ],
+        },
+        {
+          label: 'What you need',
+          paragraphs: [
+            'This program is built around machine and cable exercises. They maximise muscle tension, protect your joints. Train hard without a spotter.',
+            'Every exercise has a listed alternative so you can run the program no matter what your gym has available.',
+            "A commercial gym with a full cable stack and standard machines is ideal. A bench, a pull-up bar, dumbbells will get you there too, as long as you're willing to make the swaps.",
+          ],
+        },
+        {
+          label: 'What makes this different',
+          paragraphs: [
+            "Most programs leave room in the tank. This one doesn't.",
+            'Every set goes to true failure. Stable machine and cable movements get extended with rest-pause so you pull 2–4 extra reps past the point most people stop. Free weight movements go to failure and stop. No compromised positions, no form breakdown, no spotter needed.',
+          ],
+        },
+      ],
+      closing: ['Six weeks. Four days. Every rep earned.'],
+    },
+  },
+  {
+    src: program2, level: 'Gym', name: 'The Upper-Lower Program 1.0',
+    body: 'Where the Heavy Duty approach starts. Learn to train to true failure on a simple upper/lower split.',
+    days: 'Low volume training', weeks: 'Upper / Lower split', price: '$39.99', salePrice: '$23.99',
+    details: {
+      tagline: 'Train with intensity. Grow with purpose.',
+      intro: [
+        "Break away from the noise of high-volume tradition and step into an 8-week upper/lower split program inspired by Mike Mentzer's HIT (High Intensity Training) principles. This program focuses on low volume and high intensity, helping you achieve real progress in less time.",
+        "Each session pushes you close to failure using compound and isolation lifts selected for maximum return. It's not about doing more, it's about doing it right.",
+      ],
+      sections: [
+        {
+          label: '8-Week Structure',
+          paragraphs: [
+            'Weeks 1–4 build the foundation. Dial in form, start your logbook. Week 5 is a strategic deload to reset and recover. Weeks 6–8 step up the intensity with optional advanced techniques.',
+          ],
+        },
+        {
+          label: "What's included",
+          paragraphs: [
+            'Four days per week on an upper/lower split with set-by-set training logs for all 8 weeks. An Exercise Alternatives Guide makes it easy to swap movements, with progression advice to push through plateaus.',
+          ],
+        },
+        {
+          label: 'Perfect for',
+          paragraphs: [
+            'Lifters sick of wasting time on ineffective high-volume routines. Beginner to intermediate trainees who want to train smarter, not longer. Anyone ready to challenge themselves and train with real intent.',
+          ],
+        },
+      ],
+      closing: ['Mobile & printer-friendly.'],
+    },
+  },
+  {
+    src: program3, level: 'At home', name: 'High Intensity Kettlebell Program',
+    body: 'A beginner at-home program built around kettlebells. High intensity, low volume, minimal equipment.',
+    days: 'Low volume training', weeks: 'Beginner friendly', price: '$39.99', salePrice: '$23.99',
+    details: {
+      tagline: 'Push past your limits without wasting hours in the gym.',
+      intro: [
+        "This isn't another high-volume routine that leaves you spinning your wheels. This is an 8-week kettlebell program built on true High Intensity Training (HIT) principles inspired by legends like Mike Mentzer. Low volume. Maximum effort. Results you can measure.",
+        "Every session is stripped down to what matters most: smart compound lifts, focused isolation work. A progression plan that keeps you training hard, not endlessly.",
+      ],
+      sections: [
+        {
+          label: '8-Week Structure',
+          paragraphs: [
+            'Weeks 1–4 cover the basics. Nail your form, build your training log. Week 5 is a full deload to recharge before the final push. Weeks 6–8 raise the intensity with optional advanced techniques.',
+          ],
+        },
+        {
+          label: "What's included",
+          paragraphs: [
+            "Four days per week on an upper/lower split that works at home or in a gym with just a kettlebell or dumbbell. Set-by-set training sheets keep your progress on track. An Exercise Alternatives Guide lets you adapt to whatever equipment you have. Built-in progression and recovery keep you growing stronger, not just tired, with plateau-busting tips when you need them.",
+          ],
+        },
+        {
+          label: "Who it's for",
+          paragraphs: [
+            "Made for lifters done with high-volume fluff that drains energy and motivation. Beginners ready to train smarter, not longer. Anyone who wants to hit failure with purpose, recover right, actually grow.",
+          ],
+        },
+      ],
+      closing: ['Train intense. Recover fully. Repeat.', 'Mobile & printer-friendly.', 'One kettlebell. Eight weeks. Real results.'],
+    },
+  },
 ]
 
 const habits = [
@@ -203,7 +305,7 @@ export default function App() {
       {mobileMenuOpen && (
         <>
           <div onClick={() => setMobileMenuOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 48 }} />
-          <div style={{ position: 'fixed', top: 70, left: 16, right: 16, zIndex: 50, background: 'rgba(18,18,18,0.95)', backdropFilter: 'blur(20px) saturate(1.6)', WebkitBackdropFilter: 'blur(20px) saturate(1.6)', borderRadius: 20, border: '1px solid rgba(244,244,240,0.14)', padding: '8px', display: 'flex', flexDirection: 'column', gap: 2, animation: 'navSlideDown 180ms ease-out both' }}>
+          <div style={{ position: 'fixed', top: SALE ? 106 : 70, left: 16, right: 16, zIndex: 50, background: 'rgba(18,18,18,0.95)', backdropFilter: 'blur(20px) saturate(1.6)', WebkitBackdropFilter: 'blur(20px) saturate(1.6)', borderRadius: 20, border: '1px solid rgba(244,244,240,0.14)', padding: '8px', display: 'flex', flexDirection: 'column', gap: 2, animation: 'navSlideDown 180ms ease-out both' }}>
             <button onClick={() => scrollTo('method')} className="hvr-nav" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 16, fontWeight: 500, padding: '14px 16px', borderRadius: 14, cursor: 'pointer', textAlign: 'left' }}>Method</button>
             <button onClick={() => scrollTo('programs')} className="hvr-nav" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 16, fontWeight: 500, padding: '14px 16px', borderRadius: 14, cursor: 'pointer', textAlign: 'left' }}>Programs</button>
             <button onClick={() => scrollTo('coaching')} className="hvr-nav" style={{ background: 'none', border: 0, color: '#F4F4F0', fontSize: 16, fontWeight: 500, padding: '14px 16px', borderRadius: 14, cursor: 'pointer', textAlign: 'left' }}>Coaching</button>
@@ -296,7 +398,7 @@ export default function App() {
                 {/* #9 headline made specific */}
                 <h2 style={{ margin: 0, fontSize: 'clamp(40px,5.6vw,72px)', lineHeight: 1, letterSpacing: '-0.05em', fontWeight: 800, textWrap: 'balance' }}>Three programs. Zero guesswork.</h2>
               </div>
-              <p style={{ margin: 0, fontSize: 17, lineHeight: 1.5, color: '#6b6b6b', maxWidth: 360 }}>Structured, self-guided programs you can run from any gym. Instant access after purchase.</p>
+              <p style={{ margin: 0, fontSize: 17, lineHeight: 1.5, color: '#6b6b6b', maxWidth: 360 }}>Structured, self-guided programs you can run from the gym or at home.</p>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,300px),1fr))', gap: 20, marginTop: 56 }}>
               {programs.map((p, i) => (
@@ -414,7 +516,7 @@ export default function App() {
               {sent ? (
                 <div style={{ padding: '40px 0', display: 'flex', flexDirection: 'column', gap: 16, animation: 'pulseIn 500ms ease-out both' }}>
                   <div style={{ fontSize: 'clamp(32px,4vw,48px)', fontWeight: 800, letterSpacing: '-0.045em' }}>Thanks, {firstName}.</div>
-                  <div style={{ fontSize: 18, lineHeight: 1.5, color: '#555', maxWidth: 440 }}>Your email app should have opened with your details filled in. Hit send and I'll be in touch, usually the same day.</div>
+                  <div style={{ fontSize: 18, lineHeight: 1.5, color: '#555', maxWidth: 440 }}>Got it. I'll reply within a day.</div>
                   <button onClick={resetForm} className="hvr-white" style={{ alignSelf: 'flex-start', marginTop: 12, height: 46, padding: '0 22px', borderRadius: 999, border: '1px solid #cfcfcf', background: '#fff', color: '#111', fontSize: 15, cursor: 'pointer' }}>Send another</button>
                 </div>
               ) : (
@@ -503,7 +605,7 @@ export default function App() {
           {[
             {
               heading: 'What we collect',
-              body: 'When you submit the contact form, we collect the name, email address, training preferences and any details you choose to share in the message field. We do not collect any data passively: no cookies, no analytics, no tracking.',
+              body: 'When you submit the contact form, we collect the name, email address, training preferences and any details you choose to share in the message field. This site also uses Vercel Analytics to collect anonymous, aggregated page-view data. No personally identifiable information is captured by analytics.',
             },
             {
               heading: 'How it is processed',
@@ -558,12 +660,11 @@ export default function App() {
               heading: 'Intellectual property',
               body: [
                 'All content on this site (text, design, code) is the property of Keenan Bernard unless stated otherwise. You may not reproduce or distribute it without permission.',
-                'Third-party trademarks (App Store, Google Play, etc.) belong to their respective owners and are referenced for identification purposes only.',
               ],
             },
             {
               heading: 'No warranties',
-              body: ['This site is provided as-is. While every effort is made to keep information accurate, no guarantees are made regarding completeness or availability. Project examples shown represent past client work and results may differ.'],
+              body: ['This site is provided as-is. While every effort is made to keep information accurate, no guarantees are made regarding completeness or availability. Results may differ.'],
             },
             {
               heading: 'External links',
@@ -608,6 +709,63 @@ export default function App() {
             )}
             <span style={{ fontSize: 16, color: '#888', alignSelf: 'center' }}>USD · one-time</span>
           </div>
+
+          {buyProgram.details && (
+            <div style={{ marginTop: 40, display: 'flex', flexDirection: 'column', gap: 24 }}>
+              <p style={{ margin: 0, fontSize: 'clamp(20px,2.4vw,26px)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.2 }}>{buyProgram.details.tagline}</p>
+              {buyProgram.details.intro.map((para, i) => (
+                <p key={i} style={{ margin: 0, fontSize: 16, lineHeight: 1.65, color: '#444' }}>{para}</p>
+              ))}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 28, marginTop: 8 }}>
+                {buyProgram.details.sections ? (
+                  buyProgram.details.sections.map((s, i) => (
+                    <div key={i}>
+                      <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666', fontWeight: 500, marginBottom: 14 }}>{s.label}</div>
+                      {s.paragraphs.map((para, j) => (
+                        <p key={j} style={{ margin: j > 0 ? '12px 0 0' : 0, fontSize: 16, lineHeight: 1.65, color: '#444' }}>{para}</p>
+                      ))}
+                    </div>
+                  ))
+                ) : (<>
+                  <div>
+                    <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666', fontWeight: 500, marginBottom: 14 }}>{buyProgram.details.structure.label}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {buyProgram.details.structure.items.map((item, i) => (
+                        <div key={i} style={{ display: 'flex', gap: 12, fontSize: 15, lineHeight: 1.5, color: '#333' }}>
+                          <span style={{ color: '#aaa', flex: 'none' }}>–</span>{item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666', fontWeight: 500, marginBottom: 14 }}>What's included</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {buyProgram.details.includes.map((item, i) => (
+                        <div key={i} style={{ display: 'flex', gap: 12, fontSize: 15, lineHeight: 1.5, color: '#333' }}>
+                          <span style={{ color: ACCENT, flex: 'none', fontWeight: 700 }}>✓</span>{item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666', fontWeight: 500, marginBottom: 14 }}>Who it's for</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {buyProgram.details.whoFor.map((item, i) => (
+                        <div key={i} style={{ display: 'flex', gap: 12, fontSize: 15, lineHeight: 1.5, color: '#333' }}>
+                          <span style={{ color: '#aaa', flex: 'none' }}>–</span>{item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>)}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, paddingTop: 4 }}>
+                {buyProgram.details.closing.map((line, i) => (
+                  <p key={i} style={{ margin: 0, fontSize: i === 0 ? 18 : 15, fontWeight: i === 0 ? 700 : 400, letterSpacing: i === 0 ? '-0.02em' : 0, color: i === 0 ? '#111' : '#666', lineHeight: 1.4 }}>{line}</p>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div style={{ marginTop: 48 }}>
             <div style={{ display: 'grid', gridTemplateColumns: '56px 1fr', gap: 16, padding: '28px 0', borderTop: '1px solid #e3e3e3' }}>
