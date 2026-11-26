@@ -91,7 +91,7 @@ const programs = [
           ],
         },
       ],
-      closing: ['Mobile & printer-friendly.'],
+      closing: [],
     },
   },
   {
@@ -124,7 +124,7 @@ const programs = [
           ],
         },
       ],
-      closing: ['Train intense. Recover fully. Repeat.', 'Mobile & printer-friendly.', 'One kettlebell. Eight weeks. Real results.'],
+      closing: ['Train intense. Recover fully. Repeat.', 'One kettlebell. Eight weeks. Real results.'],
     },
   },
 ]
@@ -193,7 +193,10 @@ export default function App() {
     }
   }
 
-  function goHome() { navigate('home') }
+  function goHome() {
+    if (page === 'home') { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); return }
+    navigate('home')
+  }
   function goContact() { navigate('contact') }
   function goPrivacy() { navigate('privacy') }
   function goTerms() { navigate('terms') }
