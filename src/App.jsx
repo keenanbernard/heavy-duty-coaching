@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import coachWhiteCap from './assets/coach-white-cap.webp'
 import program1 from './assets/program-1.webp'
@@ -144,6 +144,25 @@ const coachingIncludes = [
   'Cancel anytime. No lock-in contracts.',
 ]
 
+const testimonials = [
+  {
+    name: 'Danai',
+    meta: 'United Kingdom',
+    metaLink: { label: 'Program client', programIdx: 1 },
+    body: "Before the change, I was doing 14-20 sets per muscle group. My training plan was that I trained for four weeks and did a deload week. In the last week I then trained the 14-20 sets close to muscle failure. My progression was very slow... Now I've split my sets to 6-8 sets per muscle group and train close to muscle failure. That was the best decision, I can improve in every session and feel fresh when I train the muscles. What I've also noticed is that I can concentrate much more in every set and put in 100%. I don't have to do deload anymore either, so I don't lose a week every time. I've also surpassed every personal best from the past with the low volume approach now.",
+  },
+  {
+    name: 'Orell',
+    meta: 'Belize · 4 months of coaching',
+    body: "I trained with Keenan for a little over 4 months and it was a great experience. His training style is challenging but enjoyable, and he pushes you to go beyond what you think you're capable of. I appreciated his patience, guidance, and attention to proper form throughout each session. After four weeks of consistent training, I noticed improvements in my strength, endurance, and overall fitness. The experience has also helped me become more disciplined and confident in the gym. I would definitely recommend him to anyone looking to improve their fitness.",
+  },
+  {
+    name: 'Sharla',
+    meta: 'Belize · 3 months of coaching',
+    body: "I had a great experience throughout my three months of gym training. The program included a balanced mix of upper- and lower-body workouts that helped improve my strength, endurance, and overall fitness. The trainer was supportive, knowledgeable, and consistently pushed me beyond my comfort zone to achieve the best results. The workouts were challenging but rewarding, and I noticed improvements in my strength, performance, and confidence. Overall, it was a great experience, and I highly recommend the training program to anyone looking to improve their fitness and achieve their goals.",
+  },
+]
+
 const directLinks = [
   { label: 'Email', value: 'keenanbernard@outlook.com', href: 'mailto:keenanbernard@outlook.com' },
   { label: 'Phone', value: '+501 614 4297', href: 'tel:+5016144297' },
@@ -159,6 +178,7 @@ const selectionGroups = [
 
 export default function App() {
   const [page, setPage] = useState('home')
+  const tRef = useRef(null)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [details, setDetails] = useState('')
@@ -490,6 +510,37 @@ export default function App() {
             <div style={{ position: 'relative', minHeight: 520 }}>
               <img src={coachWhiteCap} alt="Keenan training" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }} />
             </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section style={{ padding: 'clamp(80px,12vw,160px) 0' }}>
+          <div style={{ maxWidth: 1240, margin: '0 auto', padding: '0 clamp(20px,5vw,48px)' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 20 }}>
+              <div>
+                <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666', marginBottom: 20, fontWeight: 500 }}>Results</div>
+                <h2 style={{ margin: 0, fontSize: 'clamp(40px,5.6vw,72px)', lineHeight: 1, letterSpacing: '-0.05em', fontWeight: 800, textWrap: 'balance' }}>What clients say.</h2>
+                <p style={{ margin: '16px 0 0', fontSize: 16, lineHeight: 1.55, color: '#6b6b6b', maxWidth: 540 }}>Individual results depend on consistency, effort, and nutrition.</p>
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button onClick={() => tRef.current?.scrollBy({ left: -600, behavior: 'smooth' })} className="hvr-nav" style={{ width: 44, height: 44, borderRadius: 999, border: '1px solid #dadada', background: '#fff', cursor: 'pointer', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
+                <button onClick={() => tRef.current?.scrollBy({ left: 600, behavior: 'smooth' })} className="hvr-nav" style={{ width: 44, height: 44, borderRadius: 999, border: '1px solid #dadada', background: '#fff', cursor: 'pointer', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>→</button>
+              </div>
+            </div>
+          </div>
+          <div ref={tRef} className="t-scroll" style={{ display: 'flex', gap: 20, overflowX: 'auto', scrollSnapType: 'x mandatory', scrollbarWidth: 'none', msOverflowStyle: 'none', marginTop: 40, padding: '4px clamp(20px,5vw,48px) 4px' }}>
+            {testimonials.map(t => (
+              <div key={t.name} style={{ flex: '0 0 clamp(300px,calc(50vw - clamp(20px,4vw,56px)),580px)', scrollSnapAlign: 'start', background: '#f5f5f7', borderRadius: 28, padding: 'clamp(28px,4vw,44px)', display: 'flex', flexDirection: 'column', gap: 20 }}>
+                <div style={{ fontSize: 32, fontWeight: 800, color: ACCENT, lineHeight: 1, letterSpacing: '-0.04em' }}>"</div>
+                <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: '#333', flex: 1 }}>{t.body}</p>
+                <div style={{ borderTop: '1px solid #e3e3e3', paddingTop: 18, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.02em' }}>{t.name}</div>
+                  <div style={{ fontFamily: MONO, fontSize: 11, color: '#888', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    {t.meta}{t.metaLink && <> · <button onClick={() => goBuy(programs[t.metaLink.programIdx])} style={{ background: 'none', border: 0, padding: 0, fontFamily: MONO, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: ACCENT, cursor: 'pointer', textDecoration: 'underline', textDecorationColor: ACCENT }}>{t.metaLink.label}</button></>}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

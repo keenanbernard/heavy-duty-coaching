@@ -1,3 +1,4 @@
+.t-scroll::-webkit-scrollbar { display: none; }
 .hvr-white:hover { background: #e6e6e6 !important; }
 .hvr-dark:hover { background: #333 !important; }
 .hvr-nav:hover { background: rgba(255,255,255,0.1) !important; }
