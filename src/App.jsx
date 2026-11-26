@@ -204,7 +204,7 @@ export default function App() {
 
   async function submit() {
     if (honey) return // #18 honeypot — bots fill hidden fields, humans don't
-    if (!name.trim() || !/\S+@\S+\.\S+/.test(email)) {
+    if (!name.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       setError('Add your name and a valid email.')
       return
     }
