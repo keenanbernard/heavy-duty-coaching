@@ -572,7 +572,7 @@ export default function App() {
               <div>
                 <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666', marginBottom: 20, fontWeight: 500 }}>Results</div>
                 <h2 style={{ margin: 0, fontSize: 'clamp(40px,5.6vw,72px)', lineHeight: 1, letterSpacing: '-0.05em', fontWeight: 800, textWrap: 'balance' }}>What clients say.</h2>
-                <p style={{ margin: '16px 0 0', fontSize: 16, lineHeight: 1.55, color: '#6b6b6b', maxWidth: 540 }}>Individual results depend on consistency, effort, and nutrition.</p>
+                <p style={{ margin: '16px 0 0', fontSize: 16, lineHeight: 1.55, color: '#6b6b6b', maxWidth: 540 }}>Individual results depend on consistency, effort and nutrition.</p>
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <button onClick={tPrev} className="hvr-nav" style={{ width: 44, height: 44, borderRadius: 999, border: '1px solid #dadada', background: '#fff', cursor: 'pointer', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
