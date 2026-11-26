@@ -182,6 +182,7 @@ export default function App() {
   const [page, setPage] = useState('home')
   const tCardRef = useRef(null)
   const tMoving = useRef(false)
+  const tTouchX = useRef(null)
   const [tIdx, setTIdx] = useState(1)
   const [tAnim, setTAnim] = useState(false)
   const [tCardW, setTCardW] = useState(0)
@@ -587,6 +588,14 @@ export default function App() {
                 willChange: 'transform',
               }}
               onTransitionEnd={onTEnd}
+              onTouchStart={e => { tTouchX.current = e.touches[0].clientX }}
+              onTouchEnd={e => {
+                if (tTouchX.current === null) return
+                const dx = e.changedTouches[0].clientX - tTouchX.current
+                tTouchX.current = null
+                if (Math.abs(dx) < 50) return
+                if (dx < 0) tNext(); else tPrev()
+              }}
             >
               {extT.map((t, i) => (
                 <div
