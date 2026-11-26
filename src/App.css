@@ -1,4 +1,5 @@
-.t-scroll::-webkit-scrollbar { display: none; }
+.t-card { flex: 0 0 clamp(300px, calc(50vw - clamp(20px,4vw,56px)), 580px); }
+@media (max-width: 600px) { .t-card { flex: 0 0 calc(100vw - 56px); } }
 .hvr-white:hover { background: #e6e6e6 !important; }
 .hvr-dark:hover { background: #333 !important; }
 .hvr-nav:hover { background: rgba(255,255,255,0.1) !important; }

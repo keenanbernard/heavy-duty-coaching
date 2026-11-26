@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import coachWhiteCap from './assets/coach-white-cap.webp'
 import program1 from './assets/program-1.webp'
@@ -163,6 +163,8 @@ const testimonials = [
   },
 ]
 
+const extT = [testimonials[testimonials.length - 1], ...testimonials, testimonials[0]]
+
 const directLinks = [
   { label: 'Email', value: 'keenanbernard@outlook.com', href: 'mailto:keenanbernard@outlook.com' },
   { label: 'Phone', value: '+501 614 4297', href: 'tel:+5016144297' },
@@ -178,7 +180,53 @@ const selectionGroups = [
 
 export default function App() {
   const [page, setPage] = useState('home')
-  const tRef = useRef(null)
+  const tCardRef = useRef(null)
+  const tMoving = useRef(false)
+  const [tIdx, setTIdx] = useState(1)
+  const [tAnim, setTAnim] = useState(false)
+  const [tCardW, setTCardW] = useState(0)
+
+  useLayoutEffect(() => {
+    function measure() {
+      if (tCardRef.current) setTCardW(tCardRef.current.offsetWidth + 20)
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
+
+  useEffect(() => {
+    if (!tAnim) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        setTAnim(true)
+        tMoving.current = false
+      }))
+    }
+  }, [tAnim])
+
+  function tNext() {
+    if (tMoving.current) return
+    tMoving.current = true
+    setTAnim(true)
+    setTIdx(i => i + 1)
+  }
+  function tPrev() {
+    if (tMoving.current) return
+    tMoving.current = true
+    setTAnim(true)
+    setTIdx(i => i - 1)
+  }
+  function onTEnd() {
+    if (tIdx >= extT.length - 2) {
+      setTAnim(false)
+      setTIdx(0)
+    } else if (tIdx <= 0) {
+      setTAnim(false)
+      setTIdx(extT.length - 2)
+    } else {
+      tMoving.current = false
+    }
+  }
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [details, setDetails] = useState('')
@@ -523,24 +571,41 @@ export default function App() {
                 <p style={{ margin: '16px 0 0', fontSize: 16, lineHeight: 1.55, color: '#6b6b6b', maxWidth: 540 }}>Individual results depend on consistency, effort, and nutrition.</p>
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
-                <button onClick={() => tRef.current?.scrollBy({ left: -600, behavior: 'smooth' })} className="hvr-nav" style={{ width: 44, height: 44, borderRadius: 999, border: '1px solid #dadada', background: '#fff', cursor: 'pointer', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
-                <button onClick={() => tRef.current?.scrollBy({ left: 600, behavior: 'smooth' })} className="hvr-nav" style={{ width: 44, height: 44, borderRadius: 999, border: '1px solid #dadada', background: '#fff', cursor: 'pointer', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>→</button>
+                <button onClick={tPrev} className="hvr-nav" style={{ width: 44, height: 44, borderRadius: 999, border: '1px solid #dadada', background: '#fff', cursor: 'pointer', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
+                <button onClick={tNext} className="hvr-nav" style={{ width: 44, height: 44, borderRadius: 999, border: '1px solid #dadada', background: '#fff', cursor: 'pointer', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>→</button>
               </div>
             </div>
           </div>
-          <div ref={tRef} className="t-scroll" style={{ display: 'flex', gap: 20, overflowX: 'auto', scrollSnapType: 'x mandatory', scrollbarWidth: 'none', msOverflowStyle: 'none', marginTop: 40, padding: '4px clamp(20px,5vw,48px) 4px' }}>
-            {testimonials.map(t => (
-              <div key={t.name} style={{ flex: '0 0 clamp(300px,calc(50vw - clamp(20px,4vw,56px)),580px)', scrollSnapAlign: 'start', background: '#f5f5f7', borderRadius: 28, padding: 'clamp(28px,4vw,44px)', display: 'flex', flexDirection: 'column', gap: 20 }}>
-                <div style={{ fontSize: 32, fontWeight: 800, color: ACCENT, lineHeight: 1, letterSpacing: '-0.04em' }}>"</div>
-                <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: '#333', flex: 1 }}>{t.body}</p>
-                <div style={{ borderTop: '1px solid #e3e3e3', paddingTop: 18, display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.02em' }}>{t.name}</div>
-                  <div style={{ fontFamily: MONO, fontSize: 11, color: '#888', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                    {t.meta}{t.metaLink && <> · <button onClick={() => goBuy(programs[t.metaLink.programIdx])} style={{ background: 'none', border: 0, padding: 0, fontFamily: MONO, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: ACCENT, cursor: 'pointer', textDecoration: 'underline', textDecorationColor: ACCENT }}>{t.metaLink.label}</button></>}
+          <div style={{ overflow: 'hidden', marginTop: 40 }}>
+            <div
+              style={{
+                display: 'flex',
+                gap: 20,
+                padding: '4px clamp(20px,5vw,48px) 20px',
+                transform: tCardW ? `translateX(${-tIdx * tCardW}px)` : undefined,
+                transition: tAnim ? 'transform 400ms ease' : 'none',
+                willChange: 'transform',
+              }}
+              onTransitionEnd={onTEnd}
+            >
+              {extT.map((t, i) => (
+                <div
+                  key={i}
+                  ref={i === 0 ? tCardRef : null}
+                  className="t-card"
+                  style={{ background: '#f5f5f7', borderRadius: 28, padding: 'clamp(28px,4vw,44px)', display: 'flex', flexDirection: 'column', gap: 20 }}
+                >
+                  <div style={{ fontSize: 32, fontWeight: 800, color: ACCENT, lineHeight: 1, letterSpacing: '-0.04em' }}>"</div>
+                  <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: '#333', flex: 1 }}>{t.body}</p>
+                  <div style={{ borderTop: '1px solid #e3e3e3', paddingTop: 18, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.02em' }}>{t.name}</div>
+                    <div style={{ fontFamily: MONO, fontSize: 11, color: '#888', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                      {t.meta}{t.metaLink && <> · <button onClick={() => goBuy(programs[t.metaLink.programIdx])} style={{ background: 'none', border: 0, padding: 0, fontFamily: MONO, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: ACCENT, cursor: 'pointer', textDecoration: 'underline', textDecorationColor: ACCENT }}>{t.metaLink.label}</button></>}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
