@@ -164,6 +164,12 @@ const testimonials = [
     meta: 'Belize · 3 months of coaching',
     body: "I had a great experience throughout my three months of gym training. The program included a balanced mix of upper- and lower-body workouts that helped improve my strength, endurance, and overall fitness. The trainer was supportive, knowledgeable, and consistently pushed me beyond my comfort zone to achieve the best results. The workouts were challenging but rewarding, and I noticed improvements in my strength, performance, and confidence. Overall, it was a great experience, and I highly recommend the training program to anyone looking to improve their fitness and achieve their goals.",
   },
+  {
+    name: 'Mandy',
+    initials: 'ML',
+    meta: 'Belize · 6 months of coaching',
+    body: "Keenan is an outstanding trainer. He's very knowledgeable about different exercises and techniques you can incorporate to improve your performance in order to build muscle. He is the type of trainer that understands what your goals are and does his best to help you achieve them. I highly recommend him if you're looking for someone that is passionate and knowledgeable about fitness!",
+  },
 ]
 
 const extT = [testimonials[testimonials.length - 1], ...testimonials, testimonials[0]]
